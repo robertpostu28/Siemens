@@ -8,4 +8,10 @@ public class EmailService {
                 + " for " + booking.getTickets() + " ticket(s) on train "
                 + booking.getTrain().getCode() + ".");
     }
+
+    public void sendDelayNotification(Booking booking, int delayMinutes) {
+        System.out.println("Delay email sent to " + booking.getEmail()
+                + ": train " + booking.getTrain().getCode() + " has a delay of "
+                + delayMinutes + " minutes.");
+    }
 }

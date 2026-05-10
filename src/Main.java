@@ -1,15 +1,24 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import repository.TrainRepository;
+import service.BookingService;
+import service.EmailService;
+import model.Train;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        TrainRepository trainRepository = new TrainRepository();
+        EmailService emailService = new EmailService();
+        BookingService bookingService = new BookingService(trainRepository, emailService);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.println("Available trains:");
+        for (Train train : trainRepository.findAll()) {
+            System.out.println(train.getCode() + " | " + train.getRouteDescription()
+                    + " | free seats: " + train.getAvailableSeats());
         }
+
+        System.out.println();
+        bookingService.bookTickets("IR102", "Ana Popescu", "ana.popescu@mail.com", 2);
+        bookingService.bookTickets("IR102", "Mihai Ionescu", "mihai.ionescu@mail.com", 3);
+        bookingService.bookTickets("IR102", "Extra Passenger", "extra.passenger@mail.com", 1);
+        bookingService.bookTickets("R205", "Elena Pavel", "elena.pavel@mail.com", 1);
     }
 }

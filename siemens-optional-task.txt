@@ -1,0 +1,8 @@
+Problem:
+Internship hiring can become difficult to manage when recruiters, candidates, job postings, CV files, applications, and status updates are handled manually or across different tools. This can lead to duplicated applications, lost CVs, unclear ownership, and poor visibility over the recruitment process.
+
+Solution:
+I created InternHub, a backend internship hiring platform built with Java 21 and Spring Boot. The platform models a realistic recruitment workflow where recruiters can post jobs, review applicants, update application statuses, and download candidate CVs, while candidates can upload their CV, browse open jobs, apply, and track their applications.
+
+Programmatic implementation:
+InternHub is implemented using a layered Spring architecture with controllers, services, repositories, PostgreSQL persistence, Flyway migrations, Spring Security, and Azure Blob Storage for CV files (planned for future cloud deployment; currently using Azurite from Docker as a local Azure Blob Storage emulator). The application enforces important business rules such as preventing candidates from applying without a CV, blocking duplicate applications, allowing recruiters to manage only their own jobs, and protecting CV downloads through ownership checks. It also includes reporting endpoints that show application activity, top jobs, and status breakdowns.

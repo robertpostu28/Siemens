@@ -6,14 +6,16 @@ import java.util.List;
 
 public class Train {
     private final String code;
-    private final List<ScheduledStop> route;
-    private final int totalSeats;
+    private List<ScheduledStop> route;
+    private int totalSeats;
+    private int delayMinutes;
     private final List<Booking> bookings;
 
     public Train(String code, List<ScheduledStop> route, int totalSeats) {
         this.code = code;
         this.route = route;
         this.totalSeats = totalSeats;
+        this.delayMinutes = 0;
         this.bookings = new ArrayList<>();
     }
 
@@ -31,6 +33,30 @@ public class Train {
 
     public List<ScheduledStop> getRoute() {
         return Collections.unmodifiableList(route);
+    }
+
+    public void setRoute(List<ScheduledStop> route) {
+        this.route = route;
+    }
+
+    public int getTotalSeats() {
+        return totalSeats;
+    }
+
+    public void setTotalSeats(int totalSeats) {
+        this.totalSeats = totalSeats;
+    }
+
+    public int getDelayMinutes() {
+        return delayMinutes;
+    }
+
+    public void setDelayMinutes(int delayMinutes) {
+        this.delayMinutes = delayMinutes;
+    }
+
+    public List<Booking> getBookings() {
+        return Collections.unmodifiableList(bookings);
     }
 
     public ScheduledStop getStop(String stationName) {

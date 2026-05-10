@@ -5,6 +5,7 @@ import model.Station;
 import model.Train;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ public class TrainRepository {
     private final List<Train> trains;
 
     public TrainRepository() {
-        trains = Arrays.asList(
+        trains = new ArrayList<>(Arrays.asList(
                 new Train("IR102", Arrays.asList(
                         stop("Bucharest", 8, 0),
                         stop("Brasov", 10, 30),
@@ -41,7 +42,7 @@ public class TrainRepository {
                         stop("Cluj-Napoca", 13, 10),
                         stop("Brasov", 17, 50)
                 ), 4)
-        );
+        ));
     }
 
     public List<Train> findAll() {
@@ -57,7 +58,36 @@ public class TrainRepository {
         return null;
     }
 
-    private ScheduledStop stop(String stationName, int hour, int minute) {
+    public boolean addTrain(Train train) {
+        if (findByCode(train.getCode()) != null) {
+            return false;
+        }
+
+        trains.add(train);
+        return true;
+    }
+
+    public boolean removeTrain(String code) {
+        Train train = findByCode(code);
+        if (train == null) {
+            return false;
+        }
+
+        trains.remove(train);
+        return true;
+    }
+
+    public boolean replaceTrain(String oldCode, Train updatedTrain) {
+        for (int i = 0; i < trains.size(); i++) {
+            if (trains.get(i).getCode().equalsIgnoreCase(oldCode)) {
+                trains.set(i, updatedTrain);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ScheduledStop stop(String stationName, int hour, int minute) {
         return new ScheduledStop(new Station(stationName), LocalTime.of(hour, minute));
     }
 }
